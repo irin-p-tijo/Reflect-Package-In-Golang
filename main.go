@@ -17,15 +17,10 @@ type Address struct {
 	City   string
 }
 
-func StructToMap(s interface{}) map[string]interface{} {
+func StructToMap(q interface{}) map[string]interface{} {
 	result := make(map[string]interface{})
-
-	v := reflect.ValueOf(s)
-	if v.Kind() != reflect.Struct {
-		panic("input is not struct")
-	}
-
-	t := v.Type()
+	t := reflect.TypeOf(q)
+	v := reflect.ValueOf(q)
 
 	for i := 0; i < v.NumField(); i++ {
 
@@ -44,16 +39,14 @@ func StructToMap(s interface{}) map[string]interface{} {
 
 func main() {
 	p := Person{
-		Name: "Alice", 
-		Age: 18,
+		Name: "Alice",
+		Age:  18,
 		Address: Address{
-			Street:"ABC street",
-			City: "Ekm",
-			
+			Street: "ABC street",
+			City:   "Ekm",
 		},
 	}
 	m := StructToMap(p)
 
-	fmt.Println(p)
 	fmt.Println(m)
 }
